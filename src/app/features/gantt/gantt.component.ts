@@ -1,5 +1,10 @@
-import { Component, Input } from '@angular/core';
-import { CdkDragEnd, DragDropModule } from '@angular/cdk/drag-drop';
+import { Component, Input, OnInit } from '@angular/core';
+import {
+  CdkDragDrop,
+  CdkDragEnd,
+  DragDropModule,
+  moveItemInArray,
+} from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 
 export interface GanttTask {
@@ -18,10 +23,10 @@ export interface GanttTask {
 
   styleUrls: ['./gantt.component.css'],
 })
-export class GanttComponent {
+export class GanttComponent implements OnInit {
   @Input() tasks: GanttTask[] = [];
 
-  cellWidth = 32;
+  cellWidth = 50;
   dateRange: Date[] = [];
 
   ngOnInit() {
@@ -64,6 +69,7 @@ export class GanttComponent {
       date.setDate(date.getDate() + 1);
     }
 
+    console.log('Date Range:', range);
     this.dateRange = range;
   }
 
@@ -109,6 +115,7 @@ export class GanttComponent {
       task.start = newStart;
       task.end = newEnd;
     }
+    this.buildDateRange();
 
     event.source._dragRef.reset();
   }
@@ -137,6 +144,7 @@ export class GanttComponent {
         task.end = newEnd;
       }
     }
+    this.buildDateRange();
 
     event.source._dragRef.reset();
   }
@@ -193,5 +201,13 @@ export class GanttComponent {
     }
 
     return paths;
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.tasks, event.previousIndex, event.currentIndex);
+  }
+
+  onClick() {
+    console.log('Clicked', this.tasks);
   }
 }
