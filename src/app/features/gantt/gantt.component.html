@@ -1,0 +1,58 @@
+<div class="gantt-wrapper">
+  <svg class="gantt-dependency-lines">
+    <!-- dependency curves -->
+  </svg>
+
+  <!-- Header -->
+  <div class="gantt-header">
+    <div class="gantt-label-cell header-cell"></div>
+    <div class="gantt-scrollable-header">
+      <div class="gantt-date-header">
+        <div class="gantt-date-cell" *ngFor="let date of dateRange">
+          {{ date | date : "MMM d" }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gantt-body">
+    <!-- Label Column -->
+    <div class="gantt-label-column">
+      <div class="gantt-label-cell" *ngFor="let task of tasks">
+        {{ task.name }}
+      </div>
+    </div>
+
+    <!-- Scrollable Grid -->
+    <div class="gantt-scrollable">
+      <div class="gantt-grid">
+        <div class="gantt-grid-row" *ngFor="let task of tasks">
+          <div class="gantt-cell" *ngFor="let date of dateRange"></div>
+
+          <!-- Task Bar -->
+          <div
+            class="gantt-bar"
+            cdkDrag
+            [cdkDragLockAxis]="'x'"
+            [cdkDragFreeDragPosition]="getTaskPosition(task)"
+            (cdkDragEnded)="onDragEnded($event, task)"
+            [ngStyle]="getBarStyle(task)"
+          >
+            <div
+              class="resize-handle left"
+              cdkDrag
+              [cdkDragLockAxis]="'x'"
+              (cdkDragEnded)="onResizeEnded($event, task, 'start')"
+            ></div>
+            <div
+              class="resize-handle right"
+              cdkDrag
+              [cdkDragLockAxis]="'x'"
+              (cdkDragEnded)="onResizeEnded($event, task, 'end')"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
