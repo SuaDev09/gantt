@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+@import "@angular/cdk/overlay-prebuilt.css";
+button {
+  min-height: 42px;
+  max-height: 42px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: beige;
+  border-radius: 0.5rem;
+  gap: 0.5rem;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: rgb(212, 212, 198);
+}

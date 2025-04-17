@@ -1,0 +1,42 @@
+<form id="add-task-duration">
+  <h1>Add Task duration</h1>
+  <div class="inner-form-container">
+    <fieldset>
+      <label for="task-name">Task name:</label>
+      <input
+        type="text"
+        id="task-name"
+        name="task-name"
+        [(ngModel)]="task.name"
+        placeholder="Task name"
+        required
+      />
+    </fieldset>
+    <fieldset>
+      <label for="start-date">Start date:</label>
+      <input
+        type="date"
+        id="start-date"
+        name="start-date"
+        [(ngModel)]="startDate"
+        min="2022-01-01"
+        max="2050-12-31"
+      />
+    </fieldset>
+    <fieldset>
+      <label for="end-date">End date:</label>
+      <input
+        type="date"
+        id="end-date"
+        name="end-date"
+        [(ngModel)]="endDate"
+        [min]="startDate"
+        max="2050-12-31"
+      />
+    </fieldset>
+  </div>
+  <div class="actions">
+    <button (click)="dialogRef.close()">Cancel</button>
+    <button (click)="dialogRef.close(task)">Save</button>
+  </div>
+</form>

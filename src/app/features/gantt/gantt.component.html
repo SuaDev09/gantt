@@ -1,83 +1,9 @@
-<div class="gantt-wrapper">
-  <svg class="gantt-dependency-lines">
-    <!-- dependency curves -->
-  </svg>
-
-  <!-- Header -->
-  <div class="gantt-header">
-    <div class="gantt-scrollable-header">
-      <div class="gantt-date-header">
-        <div class="gantt-label-column">
-          <div class="gantt-label-cell">sd</div>
-        </div>
-        <div
-          class="gantt-date-cell"
-          [ngStyle]="{
-        width: cellWidth - 1 + 'px',
-      }"
-          *ngFor="let date of dateRange"
-        >
-          {{ date | date : "MMM d" }}
-        </div>
-      </div>
-    </div>
+<div class="gantt">
+  <div class="gantt-taskbar">
+    <button (click)="openDialog('add-task')">
+      <ng-icon name="boxAddToQueue" />
+      <p>Add Task</p>
+    </button>
   </div>
-
-  <div class="gantt-body">
-    <!-- Label Column -->
-    <div
-      cdkDropList
-      class="gantt-label-column"
-      (cdkDropListDropped)="drop($event)"
-    >
-      @for (movie of tasks; track movie) {
-      <div
-        class="gantt-label-cell"
-        [ngStyle]="{
-        width: '100%',
-      }"
-        cdkDrag
-      >
-        <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
-        {{ movie.name }}
-      </div>
-      }
-    </div>
-    <!-- Scrollable Grid -->
-    <div class="gantt-scrollable">
-      <div class="gantt-grid">
-        <div class="gantt-grid-row" *ngFor="let task of tasks; let i = index">
-          <div
-            class="gantt-cell"
-            [ngStyle]="{
-            width: cellWidth + 'px',
-            }"
-            *ngFor="let date of dateRange"
-          ></div>
-          <!-- Task Bar -->
-          <div
-            class="gantt-bar"
-            cdkDrag
-            [cdkDragLockAxis]="'x'"
-            [cdkDragFreeDragPosition]="getTaskPosition(task)"
-            (cdkDragEnded)="onDragEnded($event, task)"
-            [ngStyle]="getBarStyle(task)"
-          >
-            <div
-              class="resize-handle left"
-              cdkDrag
-              [cdkDragLockAxis]="'x'"
-              (cdkDragEnded)="onResizeEnded($event, task, 'start')"
-            ></div>
-            <div
-              class="resize-handle right"
-              cdkDrag
-              [cdkDragLockAxis]="'x'"
-              (cdkDragEnded)="onResizeEnded($event, task, 'end')"
-            ></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div role="gantt-chart"></div>
 </div>
